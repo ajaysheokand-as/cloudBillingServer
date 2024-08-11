@@ -40,8 +40,8 @@ const registerUser = async (req, res) => {
 };
 
 const loginUser = async (req, res) => {
+  console.log("User Login")
   const { emailOrMobile, password } = req.body;
-
   try {
     // Check if user exists by email or mobile
     // let user = await User.findOne({
@@ -56,12 +56,12 @@ const loginUser = async (req, res) => {
     }
 
     if (!user) {
-      return res.status(400).json({ msg: "Invalid Credentials" });
+      return res.status(400).json({ msg: "Invalid Email or Phone Number" });
     }
 
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
-      return res.status(400).json({ msg: "Invalid Credentials" });
+      return res.status(400).json({ msg: "Invalid Password" });
     }
 
     // Return JWT token
@@ -74,7 +74,7 @@ const loginUser = async (req, res) => {
     jwt.sign(
       payload,
       process.env.JWT_SECRET,
-      { expiresIn: "1h" },
+      // { expiresIn: "1h" },
       (err, token) => {
         if (err) throw err;
         res.json({ token, registrationType: user.type });
