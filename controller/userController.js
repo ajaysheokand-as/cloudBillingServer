@@ -112,6 +112,7 @@ const updateUser = async (req, res) => {
     email,
     openingHours,
     qrCodeImageUrl,
+    upiId,
   } = req.body;
 
   try {
@@ -135,6 +136,7 @@ const updateUser = async (req, res) => {
         openingHours.saturdaySunday || user.openingHours.saturdaySunday;
     }
     user.qrCodeImageUrl = qrCodeImageUrl || user.qrCodeImageUrl;
+    user.upiId = upiId || user.upiId;
 
     await user.save();
 
