@@ -7,6 +7,7 @@ const orderItemSchema = new mongoose.Schema({
 });
 
 const billSchema = new mongoose.Schema({
+  billId: Number,
   name: String,
   userId: { type: String, required: true },
   mobile: Number,
@@ -14,6 +15,7 @@ const billSchema = new mongoose.Schema({
   index: Number,
   orderItems: [orderItemSchema],
   totalAmount: Number,
+  paymentMethod: String,
   timestamp: {
     type: Date,
     default: Date.now,
