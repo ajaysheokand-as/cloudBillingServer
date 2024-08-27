@@ -47,12 +47,10 @@ const UserSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-
-  name: {
+  shop_type: {
   // restaurant: {
     type: String,
     required: true,
-    unique: true, // Add unique constraint if needed
   },
   mobile: {
     type: Number,
