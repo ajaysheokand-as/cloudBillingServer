@@ -3,7 +3,7 @@ const jwt = require("jsonwebtoken");
 const User = require("../models/userSchema");
 
 const registerUser = async (req, res) => {
-  const { name, owner, address, mobile, email, password, type } = req.body;
+  const { shop_type, owner, address, mobile, email, password, type } = req.body;
 
   if (!type) {
     return res.status(400).json({ msg: "Registration type is required." });
@@ -15,32 +15,39 @@ const registerUser = async (req, res) => {
     // Check if user already exists
     let user = await User.findOne({ $or: [{ mobile }, { email }] });
     if (user) {
-      return res.status(400).json({ msg: "User already exists" });
+      if (user.email === email) {
+        return res.status(400).json({ msg: "Email already exists" });
+      }
+
+      if (user.mobile == mobile) {
+        return res.status(401).json({ msg: "Mobile Number already exists" });
+      }
+
     }
 
-    user = new User({
-      name,
+
+    newuser = new User({
       owner,
-      address,
+      shop_type,
       mobile,
+      address,
       email,
       password,
       type,
     });
 
-    user.password = await bcrypt.hash(password, 10);
+    newuser.password = await bcrypt.hash(password, 10);
 
-    await user.save();
+    await newuser.save();
 
     res.json({ msg: "User registered successfully" });
   } catch (err) {
-    console.error(err.message);
-    res.status(500).send("Server error");
+    console.error(err?.message);
+    res.json({ error: err?.message });
   }
 };
 
 const loginUser = async (req, res) => {
-  console.log("User Login")
   const { emailOrMobile, password } = req.body;
   try {
     // Check if user exists by email or mobile
@@ -124,7 +131,7 @@ const updateUser = async (req, res) => {
 
     // Update user fields
     // user.restaurant = restaurant || user.restaurant;
-     user.name = name || user.name;
+    user.name = name || user.name;
     user.owner = owner || user.owner;
     user.address = address || user.address;
     user.mobile = mobile || user.mobile;
