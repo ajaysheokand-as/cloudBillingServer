@@ -93,6 +93,10 @@ const UserSchema = new mongoose.Schema({
     type: String,
     default: ""
   },
+  upiId: {
+    type: String,
+    default: "UPI not set",
+  },
 });
 
 
