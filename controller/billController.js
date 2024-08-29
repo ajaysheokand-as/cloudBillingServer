@@ -3,14 +3,15 @@ require("dotenv").config();
 
 const addBill = async (req, res) => {
   const userId = req.params.userId;
+  console.log("in add bill", req.body);
   try {
-    const { name, mobile, section, index, orderItems, totalAmount, paymentMethod } = req.body;
+    const { name, mobile, section, index, orderItems, totalAmount, paymentMethod,gst,discount } = req.body;
 
     const today = new Date().setHours(0,0,0,0);
     const lastBill = await Bill.findOne({ timestamp: { $gte: today } }).sort({ billId: -1 });
 
     const billId = lastBill ? lastBill.billId +1 : 1;
-
+    
     const newBill = new Bill({
       billId,
       name,
@@ -21,6 +22,8 @@ const addBill = async (req, res) => {
       orderItems,
       totalAmount,
       paymentMethod,
+      gst,
+      discount,
     });
 
     await newBill.save(); 
