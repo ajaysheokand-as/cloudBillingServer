@@ -5,7 +5,7 @@ const addBill = async (req, res) => {
   const userId = req.params.userId;
   console.log("in add bill", req.body);
   try {
-    const { name, mobile, section, index, orderItems, totalAmount, paymentMethod,gst,discount } = req.body;
+    const { name, mobile, section, index, orderItems, totalAmount, subtotal, paymentMethod,gst,discount } = req.body;
 
     const today = new Date().setHours(0,0,0,0);
     const lastBill = await Bill.findOne({ timestamp: { $gte: today } }).sort({ billId: -1 });
@@ -21,6 +21,7 @@ const addBill = async (req, res) => {
       index,
       orderItems,
       totalAmount,
+      subtotal,
       paymentMethod,
       gst,
       discount,
@@ -52,7 +53,7 @@ const getBillById = async (req, res) => {
   try {
     const { orderId } = req.params;
     console.log("this id order id", orderId)
-    const bill = await Bill.findById(orderId); // Replace with your actual data fetching logic
+    const bill = await Bill.findById(orderId)
     if (!bill) {
       return res.status(404).json({ error: "Bill not found" });
     }
