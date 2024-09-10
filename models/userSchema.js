@@ -6,9 +6,9 @@ const UserSchema = new mongoose.Schema({
     required: true,
   },
   shop_type: {
+  // restaurant: {
     type: String,
     required: true,
-   
   },
   mobile: {
     type: Number,
@@ -50,6 +50,10 @@ const UserSchema = new mongoose.Schema({
   qrCodeImageUrl: {
     type: String,
     default: ""
+  },
+  upiId: {
+    type: String,
+    default: "UPI not set",
   },
   resetPasswordToken: String,
   

@@ -3,7 +3,7 @@ const jwt = require("jsonwebtoken");
 const User = require("../models/userSchema");
 
 const registerUser = async (req, res) => {
-  const {shop_type, owner, address, mobile, email, password, type } = req.body;
+  const { shop_type, owner, address, mobile, email, password, type } = req.body;
 
   if (!type) {
     return res.status(400).json({ msg: "Registration type is required." });
@@ -18,29 +18,31 @@ const registerUser = async (req, res) => {
       return res.status(400).json({ msg: "User already exists" });
     }
 
-    user = new User({
-      shop_type,
+    
+
+
+    newuser = new User({
       owner,
-      address,
+      shop_type,
       mobile,
+      address,
       email,
       password,
       type,
     });
 
-    user.password = await bcrypt.hash(password, 10);
+    newuser.password = await bcrypt.hash(password, 10);
 
-    await user.save();
+    await newuser.save();
 
     res.json({ msg: "User registered successfully" });
   } catch (err) {
-    console.error(err.message);
+    console.error(err?.message);
     res.status(500).send("Server error");
   }
 };
 
 const loginUser = async (req, res) => {
-  console.log("User Login")
   const { emailOrMobile, password } = req.body;
   try {
     // Check if user exists by email or mobile
@@ -105,13 +107,14 @@ const updateUser = async (req, res) => {
   const userId = req.params.userId;
   const {
     // restaurant,
-    name,
+    shop_type,
     owner,
     address,
     mobile,
     email,
     openingHours,
     qrCodeImageUrl,
+    upiId,
   } = req.body;
 
   try {
@@ -123,7 +126,7 @@ const updateUser = async (req, res) => {
 
     // Update user fields
     // user.restaurant = restaurant || user.restaurant;
-     user.name = name || user.name;
+    user.shop_type = shop_type || user.shop_type;
     user.owner = owner || user.owner;
     user.address = address || user.address;
     user.mobile = mobile || user.mobile;
@@ -135,6 +138,7 @@ const updateUser = async (req, res) => {
         openingHours.saturdaySunday || user.openingHours.saturdaySunday;
     }
     user.qrCodeImageUrl = qrCodeImageUrl || user.qrCodeImageUrl;
+    user.upiId = upiId || user.upiId;
 
     await user.save();
 
