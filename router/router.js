@@ -10,18 +10,24 @@ const {
   updateProduct,
   } = require("../controller/productController");
 const { addBill, getBillData, addTableBill, updateBill, getBillById } = require("../controller/billController");
- const { addNewCategories, getNewCategories, updateNewCategories, deleteNewCategories } = require('../controller/categoriesController')
+const { addNewCategories, getNewCategories, updateNewCategories, deleteNewCategories } = require('../controller/categoriesController')
 const { getProductData, addCategory, getCategories, getAllProducts } = require("../controller/categoryController");
 const { addExpens, getExpens, updateExpens, deleteExpens }
   = require("../controller/expensisesController");
 const { registerUser, loginUser, getUserDetails, updateUser } = require("../controller/userController");
 
 const {addStructureFields, getStructureData, deleteStructure} = require("../controller/structureController");
+const { forgotPassword, resetPassword } = require("../controller/ForgotPasswordCOntroller");
+const SuperAdmin = require("../controller/SuperAdmin");
+
 
 
 router.post("/register", registerUser);
+router.post("/forgot-password", forgotPassword);
 
+router.post('/reset-password/:token', resetPassword);
 router.post("/login", loginUser);
+router.get("/superadmin/:userId",SuperAdmin);
 //router.post("/auth/google/callback", googleAuth);
 router.get('/user/:userId', getUserDetails);
 router.put("/user/:userId", updateUser);
