@@ -112,7 +112,7 @@ const updateUser = async (req, res) => {
   const userId = req.params.userId;
   const {
     // restaurant,
-    name,
+    shop_type,
     owner,
     address,
     mobile,
@@ -131,7 +131,7 @@ const updateUser = async (req, res) => {
 
     // Update user fields
     // user.restaurant = restaurant || user.restaurant;
-    user.name = name || user.name;
+    user.shop_type = shop_type || user.shop_type;
     user.owner = owner || user.owner;
     user.address = address || user.address;
     user.mobile = mobile || user.mobile;
