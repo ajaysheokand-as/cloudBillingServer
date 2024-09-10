@@ -15,15 +15,10 @@ const registerUser = async (req, res) => {
     // Check if user already exists
     let user = await User.findOne({ $or: [{ mobile }, { email }] });
     if (user) {
-      if (user.email === email) {
-        return res.status(400).json({ msg: "Email already exists" });
-      }
-
-      if (user.mobile == mobile) {
-        return res.status(401).json({ msg: "Mobile Number already exists" });
-      }
-
+      return res.status(400).json({ msg: "User already exists" });
     }
+
+    
 
 
     newuser = new User({
@@ -43,7 +38,7 @@ const registerUser = async (req, res) => {
     res.json({ msg: "User registered successfully" });
   } catch (err) {
     console.error(err?.message);
-    res.json({ error: err?.message });
+    res.status(500).send("Server error");
   }
 };
 

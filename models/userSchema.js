@@ -1,45 +1,3 @@
-// const mongoose = require("mongoose");
-
-// const UserSchema = new mongoose.Schema({
-//   owner: {
-//     type: String,
-//     required: true,
-//   },
-//   name: {
-//     // Generic field name for restaurant/store name
-//     type: String,
-//     required: true,
-//     // unique: true,
-//   },
-//   mobile: {
-//     type: Number,
-//     required: true,
-//     // unique: true,
-//   },
-//   address: {
-//     type: String,
-//     required: true,
-//   },
-//   email: {
-//     type: String,
-//     required: true,
-//     // unique: true,
-//   },
-//   password: {
-//     type: String,
-//     required: true,
-//   },
-//   type: {
-//     type: String,
-//     required: true,
-//     // enum: ["restaurant", "store"],
-//   },
-//   date: {
-//     type: Date,
-//     default: Date.now,
-//   },
-// });
-// module.exports = mongoose.model("User", UserSchema);
 const mongoose = require("mongoose");
 
 const UserSchema = new mongoose.Schema({
@@ -97,7 +55,14 @@ const UserSchema = new mongoose.Schema({
     type: String,
     default: "UPI not set",
   },
+  resetPasswordToken: String,
+  
+  resetPasswordExpires: Date,
+  type: {
+    type: String,
+    enum: ['user', 'admin', 'superadmin'], // Add 'superadmin' to the enum
+    required: true,
+  },
 });
-
 
 module.exports = mongoose.model("User", UserSchema);
