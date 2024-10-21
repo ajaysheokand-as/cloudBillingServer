@@ -3,7 +3,7 @@ const jwt = require("jsonwebtoken");
 const User = require("../models/userSchema");
 
 const registerUser = async (req, res) => {
-  const { name, owner, address, mobile, email, password, type } = req.body;
+  const { shop_type, owner, address, mobile, email, password, type } = req.body;
 
   if (!type) {
     return res.status(400).json({ msg: "Registration type is required." });
@@ -19,7 +19,7 @@ const registerUser = async (req, res) => {
     }
 
     user = new User({
-      name,
+      shop_type,
       owner,
       address,
       mobile,

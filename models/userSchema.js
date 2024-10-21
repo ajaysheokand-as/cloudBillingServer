@@ -48,7 +48,7 @@ const UserSchema = new mongoose.Schema({
     required: true,
   },
 
-  name: {
+  shop_type: {
   // restaurant: {
     type: String,
     required: true,
