@@ -17,7 +17,7 @@ const { addExpens, getExpens, updateExpens, deleteExpens }
 const { registerUser, loginUser, getUserDetails, updateUser } = require("../controller/userController");
 
 const {addStructureFields, getStructureData, deleteStructure} = require("../controller/structureController");
-const { forgotPassword, resetPassword } = require("../controller/ForgotPasswordCOntroller");
+const { forgotPassword, resetPassword } = require("../controller/ForgotPasswordController");
 const SuperAdmin = require("../controller/SuperAdmin");
 
 
