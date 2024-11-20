@@ -6,7 +6,6 @@ const UserSchema = new mongoose.Schema({
     required: true,
   },
   shop_type: {
-  // restaurant: {
     type: String,
     required: true,
   },
@@ -30,8 +29,6 @@ const UserSchema = new mongoose.Schema({
   },
   type: {
     type: String,
-    required: true,
-    enum: ["restaurant", "store"],
   },
   date: {
     type: Date,
@@ -60,8 +57,7 @@ const UserSchema = new mongoose.Schema({
   resetPasswordExpires: Date,
   type: {
     type: String,
-    enum: ['user', 'admin', 'superadmin'], // Add 'superadmin' to the enum
-    required: true,
+    // enum: ['user', 'admin', 'superadmin'],
   },
 });
 

@@ -17,10 +17,6 @@ const registerUser = async (req, res) => {
     if (user) {
       return res.status(400).json({ msg: "User already exists" });
     }
-
-    
-
-
     newuser = new User({
       owner,
       shop_type,
