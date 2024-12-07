@@ -10,7 +10,7 @@ const app = express();
 const port = process.env.PORT || 4000;
 
 // CORS configuration
-const allowedOrigins = ['https://www.cloudrasoi.com', 'http://localhost:3000'];
+const allowedOrigins = ['https://www.cloudrasoi.com','https://cloudrasoi.com', 'http://localhost:3000'];
 
 const corsOptions = {
     origin: allowedOrigins,
