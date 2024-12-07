@@ -10,17 +10,10 @@ const app = express();
 const port = process.env.PORT || 4000;
 
 // CORS configuration
-const allowedOrigins = ['https://cloudrasoi.com','https://www.cloudrasoi.com', 'http://localhost:3000'];
+const allowedOrigins = ['https://www.cloudrasoi.com', 'http://localhost:3000'];
 
 const corsOptions = {
-    origin: function (origin, callback) {
-        if (allowedOrigins.includes(origin) || !origin) {
-            // Allow requests with no origin (like mobile apps or Postman)
-            callback(null, true);
-        } else {
-            callback(new Error('Not allowed by CORS'));
-        }
-    },
+    origin: allowedOrigins,
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     credentials: true, // If using cookies or authorization headers
 };
