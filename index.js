@@ -18,6 +18,8 @@ const corsOptions = {
   credentials: true, // If using cookies or authorization headers
 };
 
+app.use(cors(corsOptions));
+
 // Middleware setup
 app.use(express.json());
 
