@@ -10,23 +10,19 @@ const app = express();
 const port = process.env.PORT || 4000;
 
 // CORS configuration
-const allowedOrigins = ['https://www.cloudrasoi.com','https://cloudrasoi.com', 'http://localhost:3000'];
+const allowedOrigins = ["cloudrasoi.com", "http://localhost:3000"];
 
 const corsOptions = {
-    origin: allowedOrigins,
-    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-    credentials: true, // If using cookies or authorization headers
+  origin: allowedOrigins,
+  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+  credentials: true, // If using cookies or authorization headers
 };
-
-app.use(cors(corsOptions));
-
-app.options('*', cors(corsOptions));
 
 // Middleware setup
 app.use(express.json());
 
-// Session setup 
-app.use( 
+// Session setup
+app.use(
   session({
     secret: process.env.JWT_SECRET, // Ensure this is set in your .env file
     resave: false,
@@ -37,20 +33,25 @@ app.use(
 // Passport setup (if you're using passport for other auth strategies)
 // app.use(passport.initialize());
 // app.use(passport.session());
- 
+
 // Use routes
 app.use(router);
 
+app.use("*", (req, res) => {
+  res.status(404).json({
+    message: "The route you are trying to access does not exist.",
+  });
+});
+
 // Database connection
-const dbConnection = require("./config/dbConnection"); 
+const dbConnection = require("./config/dbConnection");
 dbConnection();
 
-app.get('/',(req, res)=>{
-  res.send(`Server is running on ${port}`)
-})
+app.get("/", (req, res) => {
+  res.send(`Server is running on ${port}`);
+});
 
-// Start the server 
+// Start the server
 app.listen(port, () => {
   console.log(`Server is running at http://localhost:${port}`);
 });
-  
